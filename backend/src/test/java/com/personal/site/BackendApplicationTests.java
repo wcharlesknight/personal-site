@@ -1,10 +1,10 @@
-package com.personal.charlie;
+package com.personal.site;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CharlieApplicationTests {
+class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
