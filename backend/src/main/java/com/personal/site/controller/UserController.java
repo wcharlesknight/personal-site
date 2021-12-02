@@ -50,6 +50,7 @@ public class UserController {
 		return this.userRepository.save(user);
 	}
 	
+	// update user
 	@PutMapping("users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") long userId, 
 			@Valid @RequestBody User userDetails) throws ResourceNotFoundException{
@@ -61,6 +62,7 @@ public class UserController {
 		return ResponseEntity.ok(this.userRepository.save(user));
 	}
 	
+	// delete user
 	@DeleteMapping("users/{id}")
 	public Map<String,Boolean> deleteEmployee(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
 		User user = userRepository.findById(userId)

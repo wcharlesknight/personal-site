@@ -45,8 +45,3 @@ export async function call<Type>(
     const response = await axios.request<CharlieApiResponse<Type>>(config);
     return response.data;
 }
-
-function handleCharlieApiError<Type>(response: AxiosResponse<CharlieApiResponse<Type>>) {
-    // Sentry.setContext("Modernbanc API Error data:", response);
-    // Sentry.captureMessage("Modernbanc API Error");
-}
