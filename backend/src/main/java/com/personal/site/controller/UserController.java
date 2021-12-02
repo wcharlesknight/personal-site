@@ -36,13 +36,14 @@ public class UserController {
 	}
 	
 	// get user by id 
-	@GetMapping("/users/{id}")
+	@GetMapping("users/{id}")
 	public ResponseEntity<User> getEmployeeId(@PathVariable(value = "id") Long userId)
 		throws ResourceNotFoundException {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId ));
 		return ResponseEntity.ok().body(user);
 	}
+	
 	// save user
 	@PostMapping("users")
 	public User createUser(@RequestBody User user) {
