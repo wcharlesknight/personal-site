@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+Using CRACO for start/build
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+to load frontend enter "npm start" in the frontend directory
 
 ## Available Scripts
 

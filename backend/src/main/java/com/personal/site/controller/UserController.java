@@ -2,8 +2,12 @@ package com.personal.site.controller;
 
 import javax.validation.*;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +26,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/v1/")
 public class UserController {
-	
+	 
+	Logger logger = LoggerFactory.getLogger(UserController.class);
+			
 	@Autowired
 	private UserRepository userRepository; 
 	
@@ -45,9 +53,12 @@ public class UserController {
 	}
 	
 	// save user
+    
 	@PostMapping("users")
 	public User createUser(@RequestBody User user) {
+		logger.debug("user", user);
 		return this.userRepository.save(user);
+	
 	}
 	
 	// update user

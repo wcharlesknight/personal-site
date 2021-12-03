@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Redirect, Route, Routes } from "react-router-dom";
+import Login from "./Login";
 
 //Home
 const Home = lazy(() => import("./Home"));
@@ -17,6 +18,7 @@ function AppRoutes() {
         <>
             <Routes>
                 <Route path={"/home"} element={<Home />} />
+                <Route path={"/login"} element={<Login />} />
             </Routes>
         </>
     );

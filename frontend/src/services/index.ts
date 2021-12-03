@@ -28,12 +28,14 @@ export async function call<Type>(
     queryParams?: Record<string, any>
 ) {
     const config: AxiosRequestConfig = {
-        url: `/${path}`,
+        url: `http://localhost:8080/api/v1/${path}`,
         method: method,
         headers: {
             // ...(apiKey && { Authorization: `Bearer ${apiKey}` }),
             Accept: "application/json",
+            "Access-Control-Request-Method": method,
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
             ...headers,
         },
         data: request_body,
