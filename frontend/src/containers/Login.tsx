@@ -16,8 +16,15 @@ export default function Login() {
     } = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        const res = await createUser({ username: data.username, password: data.password });
-        console.log(res, "response");
+        // const res = await createUser({ username: data.username, password: data.password });
+        fetch("http://localhost:8080/api/v1/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: data.username, password: data.password }),
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data));
+        // console.log(res, "response");
     };
 
     console.log(watch("username")); // watch input value by passing the name of it

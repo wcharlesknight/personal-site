@@ -28,7 +28,7 @@ import java.util.Map;
 
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 @RequestMapping("/api/v1/")
 public class UserController {
 	 
@@ -53,18 +53,16 @@ public class UserController {
 	}
 	
 	// save user
-    
 	@PostMapping("users")
 	public User createUser(@RequestBody User user) {
 		logger.debug("user", user);
 		return this.userRepository.save(user);
-	
 	}
 	
 	// update user
 	@PutMapping("users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") long userId, 
-			@Valid @RequestBody User userDetails) throws ResourceNotFoundException{
+			@Valid @RequestBody User userDetails) throws ResourceNotFoundException {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
 		

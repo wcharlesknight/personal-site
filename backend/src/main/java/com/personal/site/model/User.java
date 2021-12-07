@@ -7,15 +7,15 @@ import javax.persistence.*;
 public class User {
 	
 	private long id; 
-	private String name; 
+	private String username; 
 	private String password; 
 	
 	public User() {
 	
 	}
 	
-	public User(String name, String password) {
-		this.name = name;
+	public User(String username, String password) {
+		this.username = username;
 		this.password = password;
 	}
 	
@@ -30,13 +30,13 @@ public class User {
 	        this.id = id;
 	    }
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "username", nullable = false)
 	public String getName() {
-		return name;
+		return username;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String username) {
+		this.username = username;
 	}
 	
 	@Column(name = "password", nullable = false)
@@ -50,7 +50,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-	     return "User [id=" + id + ", name=" + name + "]";
+	     return "User [id=" + id + ", name=" + username + "]";
 	    }
 	
 }

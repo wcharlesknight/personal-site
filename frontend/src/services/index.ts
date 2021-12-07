@@ -20,22 +20,27 @@ export interface CharlieApiError {
     message: string;
 }
 
+// fetch("http://localhost:8080/api/v1/users", {
+//   method: "POST",
+//   headers: { "Content-Type": "application/json" },
+//   body: JSON.stringify({ username: data.username, password: data.password }),
+// })
+//   .then((res) => res.json())
+//   .then((data) => console.log(data));
+
 export async function call<Type>(
-    method: "get" | "post" | "put" | "delete",
+    method: "GET" | "POST" | "PUT" | "DELETE",
     path: string,
     headers?: Record<string, any>,
     request_body?: Record<string, any>,
     queryParams?: Record<string, any>
 ) {
-    const config: AxiosRequestConfig = {
+    const config = {
         url: `http://localhost:8080/api/v1/${path}`,
         method: method,
         headers: {
-            // ...(apiKey && { Authorization: `Bearer ${apiKey}` }),
             Accept: "application/json",
-            "Access-Control-Request-Method": method,
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
             ...headers,
         },
         data: request_body,
