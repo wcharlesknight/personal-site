@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { createUser } from "../services/users";
+import { createUser, getUsers } from "../services/users";
 
 type Inputs = {
-    username: string;
+    name: string;
     password: string;
 };
 
 export default function Login() {
+    const [userList, setUserList] = useState<string[]>([]);
     const {
         register,
         handleSubmit,
@@ -16,29 +17,39 @@ export default function Login() {
     } = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        // const res = await createUser({ username: data.username, password: data.password });
-        fetch("http://localhost:8080/api/v1/users", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username: data.username, password: data.password }),
-        })
-            .then((res) => res.json())
-            .then((data) => console.log(data));
-        // console.log(res, "response");
+        console.log(data, "data");
+        const res = await createUser({ name: data.name, password: data.password });
+        console.log(res);
     };
 
-    console.log(watch("username")); // watch input value by passing the name of it
+    const listUsers = async () => {
+        const res = await getUsers();
+        console.log(res);
+        // setUserList(res);
+    };
+
+    console.log(watch("name"));
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            <form className="flex flex-col items-center" onSubmit={handleSubmit(onSubmit)}>
-                <input className="border border-gray-500 w-44 mb-2 p-1" placeholder="username" {...register("username")} />
-                {errors.username && <>You must enter a username</>}
-                <hr className="border border-gray-400 mb-2 w-44" />
-                <input className="border border-gray-500 w-44 mb-2 p-1" placeholder="password" {...register("password")} />
-                <hr className="border border-gray-400 mb-2 w-44" />
-                <input className="w-20" type="submit" />
-            </form>
-        </div>
+        <>
+            <div className="flex justify-center items-center h-screen">
+                <form className="flex flex-col items-center" onSubmit={handleSubmit(onSubmit)}>
+                    <input className="border border-gray-500 w-44 mb-2 p-1" placeholder="name" {...register("name")} />
+                    {errors.name && <>You must enter a name</>}
+                    <hr className="border border-gray-400 mb-2 w-44" />
+                    <input type="password" className="border border-gray-500 w-44 mb-2 p-1" placeholder="password" {...register("password")} />
+                    <hr className="border border-gray-400 mb-2 w-44" />
+                    <input className="w-20" type="submit" />
+                </form>
+                <div
+                    className="text-gray-500 w-20 h-20"
+                    onClick={() => {
+                        listUsers();
+                    }}>
+                    GET USERS
+                </div>
+                {userList}
+            </div>
+        </>
     );
 }

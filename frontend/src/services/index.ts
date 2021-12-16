@@ -1,5 +1,3 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-
 export interface CharlieApiResponse<Type> {
     data: {
         object: string;
@@ -20,35 +18,32 @@ export interface CharlieApiError {
     message: string;
 }
 
-// fetch("http://localhost:8080/api/v1/users", {
-//   method: "POST",
-//   headers: { "Content-Type": "application/json" },
-//   body: JSON.stringify({ username: data.username, password: data.password }),
-// })
-//   .then((res) => res.json())
-//   .then((data) => console.log(data));
-
 export async function call<Type>(
     method: "GET" | "POST" | "PUT" | "DELETE",
     path: string,
     headers?: Record<string, any>,
-    request_body?: Record<string, any>,
-    queryParams?: Record<string, any>
+    request_body?: Type
+    // queryParams?: Record<string, any>
 ) {
-    const config = {
-        url: `http://localhost:8080/api/v1/${path}`,
-        method: method,
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            ...headers,
-        },
-        data: request_body,
-        withCredentials: true,
-        validateStatus: () => true,
-        params: { ...queryParams },
+    const fetchCall = async () => {
+        return fetch(`http://localhost:8080/api/v1/${path}`, {
+            method: method,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(request_body),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data, "data res");
+                return data;
+            })
+            .catch((err) => {
+                console.log("Error with request", err);
+            });
     };
 
-    const response = await axios.request<CharlieApiResponse<Type>>(config);
-    return response.data;
+    const res = await fetchCall();
+    console.log(res, "response");
+    return res;
 }
