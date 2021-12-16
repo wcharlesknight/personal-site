@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.personal.site.model.User;
 
-@CrossOrigin(origins = "*")
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 

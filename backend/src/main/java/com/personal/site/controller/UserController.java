@@ -22,13 +22,15 @@ import com.personal.site.respository.UserRepository;
 import com.personal.site.exception.ResourceNotFoundException;
 import com.personal.site.model.User;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/v1/")
 public class UserController {
 	 
@@ -54,10 +56,12 @@ public class UserController {
 	
 	// save user
 	@PostMapping("users")
-	public User createUser(@RequestBody User user) {
-		logger.debug("user", user);
-		return this.userRepository.save(user);
+	public ResponseEntity<User> createUser(@RequestBody User user) throws URISyntaxException {
+		User savedUser = userRepository.save(user);
+		return ResponseEntity.created(new URI("/users/" + savedUser.getId())).body(savedUser);
 	}
+	
+
 	
 	// update user
 	@PutMapping("users/{id}")
