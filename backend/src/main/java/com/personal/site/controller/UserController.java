@@ -30,9 +30,7 @@ import java.util.Map;
 
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/api/v1/")
-public class UserController {
+public class UserController extends IndexController {
 	 
 	Logger logger = LoggerFactory.getLogger(UserController.class);
 			
@@ -47,7 +45,7 @@ public class UserController {
 	
 	// get user by id 
 	@GetMapping("users/{id}")
-	public ResponseEntity<User> getEmployeeId(@PathVariable(value = "id") Long userId)
+	public ResponseEntity<User> getUserId(@PathVariable(value = "id") Long userId)
 		throws ResourceNotFoundException {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId ));
@@ -77,11 +75,10 @@ public class UserController {
 	
 	// delete user
 	@DeleteMapping("users/{id}")
-	public Map<String,Boolean> deleteEmployee(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
+	public Map<String,Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException{
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
 		this.userRepository.delete(user); 
-		
 		Map<String, Boolean> response = new HashMap<>(); 
 		response.put("deleted", Boolean.TRUE);
 		
