@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class User {
 	
 	private long id; 
-	private String username; 
-	private String password; 
+	public String username; 
+	public String password; 
 	public User() {
 	
 	}
@@ -51,5 +51,7 @@ public class User {
 	public String toString() {
 	     return "User [id=" + id + ", name=" + username + "]";
 	    }
+
+
 	
 }

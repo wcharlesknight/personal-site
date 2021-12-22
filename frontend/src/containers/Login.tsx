@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { login } from "../services/login";
 import { createUser, getUsers } from "../services/users";
 
 type Inputs = {
@@ -17,8 +18,8 @@ export default function Login() {
     } = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        console.log(data, "data");
-        const res = await createUser({ name: data.name, password: data.password });
+        const res = await login({ name: data.name, password: data.password });
+
         console.log(res);
     };
 

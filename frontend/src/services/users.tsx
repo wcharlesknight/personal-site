@@ -1,9 +1,9 @@
 import * as CharlieApi from ".";
 
-type CreateUser = { name: string; password: string };
+export type User = { name: string; password: string };
 
 export async function createUser(request_body: { name: string; password: string }) {
-    const response = await CharlieApi.call<CreateUser>("POST", "users", undefined, request_body);
+    const response = await CharlieApi.call<User>("POST", "users", undefined, request_body);
     return response;
 }
 

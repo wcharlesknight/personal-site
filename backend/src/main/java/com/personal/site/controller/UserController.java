@@ -30,6 +30,7 @@ import java.util.Map;
 
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController extends IndexController {
 	 
 	Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -59,7 +60,6 @@ public class UserController extends IndexController {
 		return ResponseEntity.created(new URI("/users/" + savedUser.getId())).body(savedUser);
 	}
 	
-
 	
 	// update user
 	@PutMapping("users/{id}")
