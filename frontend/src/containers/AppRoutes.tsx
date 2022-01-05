@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from "react";
+
 import { BrowserRouter as Redirect, Route, Routes } from "react-router-dom";
 import Login from "./Login";
 
@@ -17,8 +18,9 @@ function AppRoutes() {
     return (
         <>
             <Routes>
-                <Route path={"/home"} element={<Home />} />
+                <Route index element={<Home />} />
                 <Route path={"/login"} element={<Login />} />
+                {/* <Route path={`*`} element={<Home />} /> */}
             </Routes>
         </>
     );

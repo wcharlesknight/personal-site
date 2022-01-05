@@ -26,7 +26,7 @@ export async function call<Type>(
     // queryParams?: Record<string, any>
 ) {
     const fetchCall = async () => {
-        return fetch(`http://localhost:8080/api/v1/${path}`, {
+        return fetch(`http://localhost:8080/${path}`, {
             method: method,
             headers: {
                 "Content-Type": "application/json",

@@ -31,7 +31,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class UserController extends IndexController {
+public class UserController  {
 	 
 	Logger logger = LoggerFactory.getLogger(UserController.class);
 			

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { login } from "../services/login";
-import { createUser, getUsers } from "../services/users";
+import { login } from "../services/api/login";
+import { createUser, getUsers } from "../services/api/users";
 
 type Inputs = {
     name: string;
@@ -9,7 +9,8 @@ type Inputs = {
 };
 
 export default function Login() {
-    const [userList, setUserList] = useState<string[]>([]);
+    const [inputs, setInputs] = useState<Inputs>();
+
     const {
         register,
         handleSubmit,
@@ -18,15 +19,19 @@ export default function Login() {
     } = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        // const res = await createUser({ name: data.name, password: data.password });
         const res = await login({ name: data.name, password: data.password });
+        if (!res) {
+            console.log("bad request");
+            return;
+        }
 
         console.log(res);
     };
 
-    const listUsers = async () => {
-        const res = await getUsers();
+    const createLogin = async (data: Inputs) => {
+        const res = await login({ name: data.name, password: data.password });
         console.log(res);
-        // setUserList(res);
     };
 
     console.log(watch("name"));
@@ -40,16 +45,17 @@ export default function Login() {
                     <hr className="border border-gray-400 mb-2 w-44" />
                     <input type="password" className="border border-gray-500 w-44 mb-2 p-1" placeholder="password" {...register("password")} />
                     <hr className="border border-gray-400 mb-2 w-44" />
-                    <input className="w-20" type="submit" />
+                    <div className="flex flex-row">
+                        <input className="w-20" type="submit" />
+                        <div
+                            className="w-20 bg-gray-100 ml-1"
+                            onClick={() => {
+                                // createLogin();
+                            }}>
+                            Create Login
+                        </div>
+                    </div>
                 </form>
-                <div
-                    className="text-gray-500 w-20 h-20"
-                    onClick={() => {
-                        listUsers();
-                    }}>
-                    GET USERS
-                </div>
-                {userList}
             </div>
         </>
     );
